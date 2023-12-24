@@ -9,7 +9,7 @@ pub fn part_one(input: &str) -> Option<i64> {
                 .map(|num| num.parse::<i64>().unwrap())
                 .collect::<Vec<i64>>();
             let mut lasts: Vec<i64> = Vec::new();
-            lasts.push(nums.last().unwrap().clone());
+            lasts.push(*nums.last().unwrap());
             while nums.len() > 1 {
                 let mut a_z: bool = true;
                 nums = nums
@@ -23,9 +23,9 @@ pub fn part_one(input: &str) -> Option<i64> {
                 if a_z {
                     break;
                 }
-                lasts.push(nums.last().unwrap().clone());
+                lasts.push(*nums.last().unwrap());
             }
-            lasts.iter().fold(0, |a, b| a + b)
+            lasts.iter().sum::<i64>()
         })
         .sum();
     Some(res)
@@ -40,7 +40,7 @@ pub fn part_two(input: &str) -> Option<i64> {
                 .map(|num| num.parse::<i64>().unwrap())
                 .collect::<Vec<i64>>();
             let mut firsts: Vec<i64> = Vec::new();
-            firsts.push(nums.first().unwrap().clone());
+            firsts.push(*nums.first().unwrap());
             while nums.len() > 1 {
                 let mut a_z: bool = true;
                 nums = nums
@@ -54,7 +54,7 @@ pub fn part_two(input: &str) -> Option<i64> {
                 if a_z {
                     break;
                 }
-                firsts.push(nums.first().unwrap().clone());
+                firsts.push(*nums.first().unwrap());
             }
             firsts.iter().rev().fold(0, |a, b| b - a)
         })
