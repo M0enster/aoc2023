@@ -4,25 +4,27 @@ use std::{
     process::{Command, Output, Stdio},
 };
 
-use crate::Day;
+use crate::template::Day;
 
 #[derive(Debug)]
 pub enum AocCommandError {
     CommandNotFound,
     CommandNotCallable,
     BadExitStatus(Output),
-    IoError,
 }
 
 impl Display for AocCommandError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            AocCommandError::CommandNotFound => write!(f, "aoc-cli is not present in environment."),
-            AocCommandError::CommandNotCallable => write!(f, "aoc-cli could not be called."),
+            AocCommandError::CommandNotFound => {
+                write!(f, "aoc-cli is not present in environment.")
+            }
+            AocCommandError::CommandNotCallable => {
+                write!(f, "aoc-cli could not be called.")
+            }
             AocCommandError::BadExitStatus(_) => {
                 write!(f, "aoc-cli exited with a non-zero status.")
             }
-            AocCommandError::IoError => write!(f, "could not write output files to file system."),
         }
     }
 }
@@ -74,7 +76,11 @@ pub fn download(day: Day) -> Result<Output, AocCommandError> {
     Ok(output)
 }
 
-pub fn submit(day: Day, part: u8, result: &str) -> Result<Output, AocCommandError> {
+pub fn submit(
+    day: Day,
+    part: u8,
+    result: &str,
+) -> Result<Output, AocCommandError> {
     // workaround: the argument order is inverted for submit.
     let mut args = build_args("submit", &[], day);
     args.push(part.to_string());
