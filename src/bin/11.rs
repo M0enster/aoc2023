@@ -42,7 +42,11 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u64> {
+    #[cfg(test)]
+    let expansion = 10 - 1;
+    #[cfg(not(test))]
     let expansion = 1000000 - 1;
+
     let lines = input.lines().collect::<Vec<_>>();
     let mut cols = vec![true; lines[0].len()];
     let mut rows_y = 0;
