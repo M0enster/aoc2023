@@ -33,10 +33,8 @@ pub fn part_two(input: &str) -> Option<u32> {
             } else {
                 v[hash].remove(i);
             }
-        } else {
-            if op == '=' {
-                v[hash].push((s, fl));
-            }
+        } else if op == '=' {
+            v[hash].push((s, fl));
         }
     });
     Some(v.iter().enumerate().fold(0, |acc, (i, v)| {
